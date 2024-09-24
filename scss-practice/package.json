@@ -1,0 +1,13 @@
+{
+  "name": "scss-practice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node scss-practice/src/index.js",
+    "build": "react-scripts build"
+  },
+  "author": "yyyn012",
+  "license": "MIT",
+  "description": "",
+  "type": "module"
+}
