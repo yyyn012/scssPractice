@@ -30,7 +30,7 @@ const Header = () => {
 
       <nav className="header__menu">
         <ul className="menu">
-          <li>
+          <li className="active">
             <a href="/">
               <CiBaseball />
               scssPractice
@@ -113,7 +113,6 @@ const Header = () => {
       </nav>
 
       <div className="header__sns">
-        {" "}
         <ul>
           <li>
             <a href="https://github.com/webstoryboy" rel="noopener noreferrer">
