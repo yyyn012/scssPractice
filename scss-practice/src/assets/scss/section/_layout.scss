@@ -15,6 +15,7 @@
   overflow-y: auto;
   z-index: 10000;
   background-color: #000;
+  border-right: 1px solid var(--black100);
 }
 
 #main {
@@ -27,6 +28,11 @@
 
 #footer {
   text-align: center;
-  background-color: #333;
-  padding: 20px 20px 20px 260px;
+  background-color: var(--black200);
+  border-top: 1px solid var(--blac100);
+  padding: 20px;
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  color: var(--black400);
+  font-size: 0.8rem;
 }
