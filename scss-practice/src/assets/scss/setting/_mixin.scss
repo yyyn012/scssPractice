@@ -1,0 +1,45 @@
+// 한 줄 효과
+
+@mixin line-one {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// 두 줄 효과
+@mixin line-two {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+// 두 줄 이상(매개 변수 이용) - 사용 시에는 @include를 이용한다.
+@mixin line($num) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $num;
+  -webkit-box-orient: vertical;
+}
+
+// @mixin과 @include
+
+// @mixin : 스타일 정의 앞에 @mixin이 붙게 되면 해당 스타일 시트 내부에서 얼마든지 재사용이 가능함. mixin 내부에서 &나 또 다른 셀렉터를 포함할 수도 있음.
+
+// 함수처럼 인수를 가질 수 있다는 특징이 있음.
+// @mixin mixin-with-args($props, $num) {
+//   #{$props}: $num;
+// }
+
+// .box1 {
+//   @include mixin-with-args(width, 100px);
+// }
+
+// 컴파일 결과
+// .box{
+//      width : 100px;
+// }
+
+// @include는 mixin을 사용하기 위해 선언하는 구문으로 셀렉터를 지정하고 그 내부에 mixin을 불러오는 역할을 함

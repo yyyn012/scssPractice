@@ -23,10 +23,14 @@
   .title {
     font-size: 2rem;
     margin-bottom: 1rem;
+    @include line-one;
+    //한 줄 효과
   }
   .desc {
     margin-bottom: 1rem;
     color: var(--white200);
+    @include line(4);
+    // mixin.scss의 line을 사용하기 위해 @include를 통해 매개변수에 4를 입력해주었다.
   }
   .info {
     .author {
@@ -40,6 +44,44 @@
     .date {
       font-style: 0.8rem;
       color: var(--white200);
+    }
+  }
+}
+
+@media (max-width: 1700px) {
+  .today__inner {
+    today__thumb {
+      width: 500px;
+    }
+
+    .today__text {
+      width: calc(100% - 500px);
+
+      .desc {
+        @include line(2);
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .today__inner {
+    flex-direction: column;
+
+    today__thumb {
+      width: 100%;
+    }
+
+    .today__text {
+      width: 100%;
+
+      .title {
+        font-size: 24px;
+      }
+
+      .desc {
+        display: none;
+      }
     }
   }
 }
