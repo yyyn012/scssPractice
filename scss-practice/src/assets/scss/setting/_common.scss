@@ -58,3 +58,14 @@ section {
     }
   }
 }
+
+// section loading source
+.isLoading {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.isLoaded {
+  opacity: 1;
+  transition: opaticy 0.5s;
+}
