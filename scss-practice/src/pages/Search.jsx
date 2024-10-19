@@ -18,13 +18,14 @@ const Search = () => {
     fetch(
       `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=48&q=${searchId}&type=video&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
     )
-      .then((response) => response.json()) // 성공 시
+      .then((response) => response.json()) // 성공 시 첫번째 인자인 response를 json으로 변환하여 반환
       .then((result) => {
+        // 반환된 response를 다시 result로 넘겨받고 setVideos에 넣어 차례대로 body에 보여줌
         console.log(result);
         setVideos(result.items);
       })
-      .catch((error) => console.log(error)); //실패 시
-  }, [searchId]);
+      .catch((error) => console.log(error)); //실패 시 error로 경고
+  }, [searchId]); // searId, 즉 파라미터가 변화할 때마다 useEffect가 실행됨
 
   return (
     <Main title="유튜브 검색" description="유튜브 검색 결과 페이지입니다.">
@@ -60,6 +61,7 @@ export default Search;
 // then()메서드는 비동기 작업이 성공했을 때 실행할 콜백 함수를 등록하는 데 사용된다.
 // 비동기 작업이 완료되면 해당 작업의 결과값을 인자로 받아 실행한다.
 //성공적인 작업 이후에 실행할 로직을 정의할 수 있다.
+// then()의 첫번째 인자는 response로 받는다.
 
 // catch()메서드는 비동기 작업에서 에러가 발생했을 때 실행할 콜백함수를 등록하는 데 사용된다.
 //catch()로 에러 처리 로직을 정의할 수 있으며 then()체인 내에서 에러가 발생하면 catch()블록으로 이동하여 에러를 처리한다.
