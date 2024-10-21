@@ -7,24 +7,17 @@ import { useParams } from "react-router-dom";
 // 예를 들어, 특정 제품 리스트에서 제품 클릭 시  해당 제품의 세부 정보를 나타내는 페이지로 이동하고 싶다면 제품의 ID 값을 URL로 넘겨 세부 페이지에서 그 ID 값에 해당하는 제품만 보여줄 수 있다.
 
 import Main from "../components/section/Main";
-
 import VideoSearch from "../components/videos/VideoSearch";
+import { fetchFromAPI } from "../utils/api";
 
 const Search = () => {
   const { searchId } = useParams();
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=48&q=${searchId}&type=video&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
-    )
-      .then((response) => response.json()) // 성공 시 첫번째 인자인 response를 json으로 변환하여 반환
-      .then((result) => {
-        // 반환된 response를 다시 result로 넘겨받고 setVideos에 넣어 차례대로 body에 보여줌
-        console.log(result);
-        setVideos(result.items);
-      })
-      .catch((error) => console.log(error)); //실패 시 error로 경고
+    fetchFromAPI(`search?part=snippet&q=${searchId}`).then((data) =>
+      setVideos(data.items)
+    );
   }, [searchId]); // searId, 즉 파라미터가 변화할 때마다 useEffect가 실행됨
 
   return (
