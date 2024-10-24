@@ -11,19 +11,31 @@ import { CiRead } from "react-icons/ci";
 const Channel = () => {
   const { channelId } = useParams();
   const [channelDetail, setChannelDetail] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchResults = async () => {
-      const data = await fetchFromAPI(`channels?part=snippet&id=${channelId}`);
-      setChannelDetail(data.items[0]);
+      try {
+        const data = await fetchFromAPI(
+          `channels?part=snippet&id=${channelId}`
+        );
+        setChannelDetail(data.items[0]);
+      } catch (error) {
+        console.error("Error fetching data : ", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchResults();
   }, [channelId]);
 
+  const channelPageClass = loading ? "isLoading" : "isLoaded";
+
   return (
     <Main title="유튜브 채널" description="유튜브 채널페이지입니다.">
+      <section id="channel" className={channelPageClass}></section>
       {channelDetail && (
-        <setcion id="channel">
+        <div className="channel__inner">
           <div
             className="channel__header"
             style={{
@@ -55,7 +67,7 @@ const Channel = () => {
               </span>
             </div>
           </div>
-        </setcion>
+        </div>
       )}
     </Main>
   );
