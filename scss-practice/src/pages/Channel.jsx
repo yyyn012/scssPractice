@@ -14,6 +14,7 @@ const Channel = () => {
   const [channelDetail, setChannelDetail] = useState();
   const [channelVideo, setChannelVideo] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [nextPageToken, setNextPageToken] = useState(null);
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -27,6 +28,7 @@ const Channel = () => {
           `search?channelId=${channelId}&part=snippet%2Cid&order=date`
         );
         setChannelVideo(videosData?.items);
+        setNextPageToken(videosData?.nextPageToken);
       } catch (error) {
         console.error("Error fetching data : ", error);
       } finally {
@@ -35,6 +37,18 @@ const Channel = () => {
     };
     fetchResults();
   }, [channelId]);
+
+  const channelPageClass = loading ? "isLoading" : "isLoaded";
+
+  const loadMoreVideos = async () => {
+    if (nextPageToken) {
+      const videosData = await fetchFromAPI(
+        `search?channelId=&{channelId}&part=snippet%2Cid&order=date&pageToken=&{nextPageToken}`
+      );
+      setChannelVideo((prevVideos) => [...prevVideos, ...videosData.items]);
+      setNextPageToken(videosData?.nextPageToken);
+    }
+  };
 
   const channelPageClass = loading ? "isLoading" : "isLoaded";
 
@@ -76,6 +90,11 @@ const Channel = () => {
             </div>
             <div className="channel__video video__inner search">
               <VideoSearch videos={channelVideo} />
+            </div>
+            <div className="channel__more">
+              {nextPageToken && (
+                <button onClick={loadMoreVideos}>더보기</button>
+              )}
             </div>
           </div>
         )}
