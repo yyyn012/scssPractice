@@ -38,8 +38,6 @@ const Channel = () => {
     fetchResults();
   }, [channelId]);
 
-  const channelPageClass = loading ? "isLoading" : "isLoaded";
-
   const loadMoreVideos = async () => {
     if (nextPageToken) {
       const videosData = await fetchFromAPI(
